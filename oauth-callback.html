@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>WSUS Publisher — TikTok Auth Callback</title></head>
+<body style="font-family: -apple-system, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px;">
+  <h2>Authorization complete</h2>
+  <p>Copy the code below and paste it back into the terminal.</p>
+  <p><strong>code:</strong></p>
+  <textarea id="code" readonly style="width:100%; height:80px; font-family: monospace; font-size: 14px;"></textarea>
+  <p><strong>state:</strong> <span id="state"></span></p>
+  <p id="err" style="color:#b00;"></p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    const error = params.get("error");
+    if (code) {
+      document.getElementById("code").value = code;
+    } else {
+      document.getElementById("err").textContent = error
+        ? "TikTok returned an error: " + error + " — " + (params.get("error_description") || "")
+        : "No 'code' parameter found in the URL. Something went wrong.";
+    }
+    document.getElementById("state").textContent = state || "(none)";
+  </script>
+</body>
+</html>
